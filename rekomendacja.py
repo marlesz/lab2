@@ -10,18 +10,26 @@ users = {"Ania": {"Blues Traveler": 3.5, "Broken Bells": 2.0, "Norah Jones": 4.5
          "Ela": {"Broken Bells": 4.0, "Deadmau5": 1.0, "Norah Jones": 4.0, "The Strokes": 4.0, "Vampire Weekend": 1.0},
          "Fruzia":  {"Broken Bells": 4.5, "Deadmau5": 4.0, "Norah Jones": 5.0, "Phoenix": 5.0, "Slightly Stoopid": 4.5, "The Strokes": 4.0, "Vampire Weekend": 4.0},
          "Gosia": {"Blues Traveler": 5.0, "Broken Bells": 2.0, "Norah Jones": 3.0, "Phoenix": 5.0, "Slightly Stoopid": 4.0, "The Strokes": 5.0},
-         "Hela": {"Blues Traveler": 3.0, "Norah Jones": 5.0, "Phoenix": 4.0, "Slightly Stoopid": 2.5, "The Strokes": 3.0}
+         "Hela": {"Blues Traveler": 3.0, "Norah Jones": 5.0, "Phoenix": 4.0, "Slightly Stoopid": 2.5, "The Strokes": 3.0},
         }
-
 
 
 def manhattan(rating1, rating2):
     """Oblicz odległość w metryce taksówkowej między dwoma  zbiorami ocen
        danymi w postaci: {'The Strokes': 3.0, 'Slightly Stoopid': 2.5}
        Zwróć -1, gdy zbiory nie mają wspólnych elementów"""
-       
     # TODO: wpisz kod
-    pass
+    distance = 0
+    licz = 0
+    for i,j in users[rating1].iteritems():
+        for k, l in users[rating2].iteritems():
+            if i == k:
+                dist = abs(l-j)
+                distance = distance + dist
+                licz = licz +1
+    if licz == 0:
+        distance = -1
+    return distance
 
 
 def computeNearestNeighbor(username, users):
@@ -44,5 +52,6 @@ def recommend(username, users):
 
 # przykłady
 
-print( recommend('Hela', users))
+#print( recommend('Hela', users))
 #print( recommend('Celina', users))
+print(manhattan('Ania','Celina'))
