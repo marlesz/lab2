@@ -13,7 +13,6 @@ users = {"Ania": {"Blues Traveler": 3.5, "Broken Bells": 2.0, "Norah Jones": 4.5
          "Hela": {"Blues Traveler": 3.0, "Norah Jones": 5.0, "Phoenix": 4.0, "Slightly Stoopid": 2.5, "The Strokes": 3.0},
         }
 
-
 def manhattan(rating1, rating2):
     """Oblicz odległość w metryce taksówkowej między dwoma  zbiorami ocen
        danymi w postaci: {'The Strokes': 3.0, 'Slightly Stoopid': 2.5}
@@ -36,7 +35,19 @@ def computeNearestNeighbor(username, users):
     """dla danego użytkownika username, zwróć ze słownika users nazwę użytkownika o najbliższych preferencjach"""
     nameOfNearestNeighbor = ""
     distances = []
+    nn=[]
     # TODO: wpisz kod
+    for u in users:
+        if u!= username and manhattan(username, u)!=-1:
+            distances.append(manhattan(username, u))
+            nn.append(u)
+    if not nn:
+        nameOfNearestNeighbor= ""
+    else:
+        ind =distances.index(min(distances))
+        nameOfNearestNeighbor = nn[ind]  # tym spoosbem nie da się wyłonić więcej niż jednego imienia w przypadku, gdy odległości są takie same do kilku osób, zwracana jest tylko jedna
+
+
     return nameOfNearestNeighbor
 
 def recommend(username, users):
@@ -54,4 +65,4 @@ def recommend(username, users):
 
 #print( recommend('Hela', users))
 #print( recommend('Celina', users))
-print(manhattan('Ania','Celina'))
+print ( computeNearestNeighbor('Celina', users))
