@@ -58,7 +58,10 @@ def recommend(username, users):
     for ww, zz in users[nearest].iteritems():
         if ww not in users[username].keys():
             recommendations.append((ww,zz))
-    return sorted(recommendations, key=lambda artistTuple: artistTuple[1], reverse = True) #zwraca artystów i ocenę, posortowane po ocenie - czy w liście recommendations mają być oceny?, co ma się wyświetlać?
+    return sorted([item[0] for item in recommendations], key=lambda artistTuple: artistTuple[1], reverse = True) #zwraca artystów, posortowane po ocenie - czy w liście recommendations mają być oceny?, co ma się wyświetlać?
+    #return sorted(recommendations, key=lambda artistTuple: artistTuple[1], reverse = True) #oryginał
+    #print ([item[0] for item in recommendations])
+
 # przykłady
 
 print( recommend('Hela', users))
