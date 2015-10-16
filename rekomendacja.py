@@ -12,7 +12,6 @@ users = {"Ania": {"Blues Traveler": 3.5, "Broken Bells": 2.0, "Norah Jones": 4.5
          "Gosia": {"Blues Traveler": 5.0, "Broken Bells": 2.0, "Norah Jones": 3.0, "Phoenix": 5.0, "Slightly Stoopid": 4.0, "The Strokes": 5.0},
          "Hela": {"Blues Traveler": 3.0, "Norah Jones": 5.0, "Phoenix": 4.0, "Slightly Stoopid": 2.5, "The Strokes": 3.0},
         }
-
 def manhattan(rating1, rating2):
     """Oblicz odległość w metryce taksówkowej między dwoma  zbiorami ocen
        danymi w postaci: {'The Strokes': 3.0, 'Slightly Stoopid': 2.5}
@@ -41,12 +40,9 @@ def computeNearestNeighbor(username, users):
         if u!= username and manhattan(username, u)!=-1:
             distances.append(manhattan(username, u))
             nn.append(u)
-    if not nn:
-        nameOfNearestNeighbor= ""
-    else:
+    if nn:
         ind =distances.index(min(distances))
         nameOfNearestNeighbor = nn[ind]  # tym spoosbem nie da się wyłonić więcej niż jednego imienia w przypadku, gdy odległości są takie same do kilku osób, zwracana jest tylko jedna
-
 
     return nameOfNearestNeighbor
 
@@ -58,11 +54,14 @@ def recommend(username, users):
     recommendations = []
     # zarekomenduj użytkownikowi wykonawcę, którego jeszcze nie ocenił, a zrobił to jego najbliższy sąsiad
     # TODO: wpisz kod
-    
-    return sorted(recommendations, key=lambda artistTuple: artistTuple[1], reverse = True)
 
+    for ww, zz in users[nearest].iteritems():
+        if ww not in users[username].keys():
+            recommendations.append((ww,zz))
+    return sorted(recommendations, key=lambda artistTuple: artistTuple[1], reverse = True) #zwraca artystów i ocenę, posortowane po ocenie - czy w liście recommendations mają być oceny?, co ma się wyświetlać?
 # przykłady
 
-#print( recommend('Hela', users))
-#print( recommend('Celina', users))
-print ( computeNearestNeighbor('Celina', users))
+print( recommend('Hela', users))
+print( recommend('Ela', users))
+#print ( computeNearestNeighbor('Hela', users))
+
