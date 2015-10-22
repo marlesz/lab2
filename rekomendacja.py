@@ -1,4 +1,4 @@
-﻿#  W    zorowane na przykładzie Rona Zacharskiego
+﻿#  Wzorowane na przykładzie Rona Zacharskiego
 
 
 from math import sqrt
@@ -32,7 +32,7 @@ def manhattan(rating1, rating2):
 
 def computeNearestNeighbor(username, users):
     """dla danego użytkownika username, zwróć ze słownika users nazwę użytkownika o najbliższych preferencjach"""
-    nameOfNearestNeighbor = ""
+    nameOfNearestNeighbor = []
     distances = []
     nn=[]
     # TODO: wpisz kod
@@ -41,8 +41,11 @@ def computeNearestNeighbor(username, users):
             distances.append(manhattan(username, u))
             nn.append(u)
     if nn:
-        ind =distances.index(min(distances))
-        nameOfNearestNeighbor = nn[ind]  # tym spoosbem nie da się wyłonić więcej niż jednego imienia w przypadku, gdy odległości są takie same do kilku osób, zwracana jest tylko jedna
+        mini = min(distances)
+        for ind, dist in enumerate(distances):
+            if dist == mini:
+            #ind =distances.index(dist)
+                nameOfNearestNeighbor.append(nn[ind])  # więcej niż jedno imię w przypadku, gdy odległości są takie same do kilku osób
 
     return nameOfNearestNeighbor
 
@@ -50,21 +53,21 @@ def recommend(username, users):
     """Zwróć listę rekomendacji dla użytkownika"""
     # znajdź preferencje najbliższego sąsiada
     nearest = computeNearestNeighbor(username, users)
-    
     recommendations = []
+
     # zarekomenduj użytkownikowi wykonawcę, którego jeszcze nie ocenił, a zrobił to jego najbliższy sąsiad
     # TODO: wpisz kod
-
-    for ww, zz in users[nearest].iteritems():
-        if ww not in users[username].keys():
-            recommendations.append((ww,zz))
+    for near in nearest:
+        for ww, zz in users[near].iteritems():
+            if ww not in users[username].keys() and ww not in [a[0] for a in recommendations]:
+                    recommendations.append((ww,zz))
     return sorted([item[0] for item in recommendations], key=lambda artistTuple: artistTuple[1], reverse = True) #zwraca artystów, posortowane po ocenie - czy w liście recommendations mają być oceny?, co ma się wyświetlać?
     #return sorted(recommendations, key=lambda artistTuple: artistTuple[1], reverse = True) #oryginał
     #print ([item[0] for item in recommendations])
 
 # przykłady
 
-print( recommend('Hela', users))
-print( recommend('Ela', users))
-#print ( computeNearestNeighbor('Hela', users))
+#print( recommend('Hela', users))
+print( recommend('Celina', users))
+#print ( computeNearestNeighbor('Celina', users))
 
