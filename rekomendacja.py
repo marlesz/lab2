@@ -1,6 +1,4 @@
 ﻿#  Wzorowane na przykładzie Rona Zacharskiego
-
-
 from math import sqrt
 
 users = {"Ania": {"Blues Traveler": 3.5, "Broken Bells": 2.0, "Norah Jones": 4.5, "Phoenix": 5.0, "Slightly Stoopid": 1.5, "The Strokes": 2.5, "Vampire Weekend": 2.0},
@@ -61,13 +59,13 @@ def recommend(username, users):
         for ww, zz in users[near].iteritems():
             if ww not in users[username].keys() and ww not in [a[0] for a in recommendations]:
                     recommendations.append((ww,zz))
-    return sorted([item[0] for item in recommendations], key=lambda artistTuple: artistTuple[1], reverse = True) #zwraca artystów, posortowane po ocenie - czy w liście recommendations mają być oceny?, co ma się wyświetlać?
-    #return sorted(recommendations, key=lambda artistTuple: artistTuple[1], reverse = True) #oryginał
-    #print ([item[0] for item in recommendations])
+    if recommendations:
+        return sorted([item[0] for item in recommendations], key=lambda artistTuple: artistTuple[1], reverse = True) #zwraca artystów, posortowane po ocenie - czy w liście recommendations mają być oceny?, co ma się wyświetlać?
+    else:
+        return 'Brak rekomendacji'
 
 # przykłady
 
-#print( recommend('Hela', users))
+print( recommend('Hela', users))
 print( recommend('Celina', users))
 #print ( computeNearestNeighbor('Celina', users))
-
